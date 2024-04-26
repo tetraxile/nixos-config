@@ -1,0 +1,30 @@
+# i3blocks configuration file
+
+# Global properties
+command=$SCRIPT_DIR/$BLOCK_NAME
+separator=true
+separator_block_width=15
+markup=pango
+
+[vpn]
+interval=5
+
+[wifi]
+command=iwgetid -r
+interval=5
+label=<span color="#ff79c6"> </span>
+instance=wlp2s0
+
+[volume]
+interval=once
+signal=2
+
+[brightness]
+interval=once
+signal=3
+
+[battery]
+interval=2
+
+[datetime]
+interval=1

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+output=$(brightnessctl i | grep "Current" | cut -d ' ' -f4 | tr -d '()%')
+
+# round to nearest multiple of 5
+(( output = (output+2)/5, output *= 5 ))
+
+echo "<span color=\"#ffff00\"></span> $output%"

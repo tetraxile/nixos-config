@@ -1,0 +1,13 @@
+#!/bin/sh
+
+_output=$(sudo wg show wg-mullvad transfer 2>/dev/null);
+
+if [[ $? -ne 0 ]]; then
+	echo "no vpn";
+	exit 33;
+fi
+
+_rx=$(echo "$_output" | cut -f2 | numfmt --to=iec-i --suffix=B --format="%9.2f")
+_tx=$(echo "$_output" | cut -f3 | numfmt --to=iec-i --suffix=B --format="%9.2f")
+
+printf " %s  %s\n" $_rx $_tx
