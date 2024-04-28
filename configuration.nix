@@ -61,7 +61,6 @@
     ghidra          # disassembler/decompiler
     hplip           # HP printer drivers
     hyfetch         # pride flags neofetch
-    id3v2           # ID3 tag editor
     man-pages       # linux man pages
     mpv             # media player
     musescore       # music notation
@@ -71,7 +70,6 @@
     pciutils        # pci cli utils
     pinentry-gtk2   # enter GPG password
     prismlauncher   # minecraft launcher
-    python312       # python 3.12
     qbittorrent-nox # bittorrent client
     ripgrep         # easier-to-use alternative to grep
     rustc           # rust compiler
@@ -88,6 +86,9 @@
     xcwd            # get working directory of focused window
     xsecurelock     # lock the screen (with xset s activate)
     xss-lock        # use external screen locker
+    
+    # python 3.12
+    (python312.withPackages(ps: with ps; [ mutagen ]))
   ];
 
   fonts = {
@@ -186,8 +187,24 @@
   };
 
   programs = {
-    git.enable = true;
     zsh.enable = true;
+    
+    git = {
+      enable = true;
+      config = {
+        user = {
+          email = "tetraxile@proton.me";
+          name = "tetraxile";
+          signingkey = "AB1243FD5015BF6A";
+        };
+        credential.helper = "cache";
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+        url."https://".insteadof = "git://";
+        init.defaultBranch = "main";
+        http.sslVerify = false;
+      };
+    };
 
     neovim = {
       enable = true;
