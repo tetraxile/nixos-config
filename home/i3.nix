@@ -2,7 +2,7 @@
 
 let
   mod = "Mod4";
-  modeSystem = "loc[k], [l]ogout, [s]uspend, [h]ibernate, [r]eboot, [S]hutdown";
+  modeSystem = "loc[k], [l]ogout, [s]uspend, [r]eboot, [S]hutdown";
 in {
   xsession.windowManager.i3 = {
     enable = true;
@@ -32,6 +32,9 @@ in {
 
         # take screenshot and copy to clipboard
         "${mod}+c" = "exec escrotum -sC";
+        
+        # take screenshot and save to file
+        # "${mod}+Alt+c" = "exec escrotum -s '$HOME/Pictures/screenshot-%Y%m%d-%H%M%S.png'";
         
         # kill focused container
         "${mod}+Shift+q" = "kill";
@@ -106,6 +109,17 @@ in {
         "${mod}+Shift+9" = "move container to workspace number 9";
 
         "${mod}+r" = "mode resize";
+        "${mod}+Escape" = "mode \"${modeSystem}\"";
+
+        # use wpctl to adjust volume
+        "XF86AudioRaiseVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@   5%+ --limit 1.0 && pkill -RTMIN+2 i3blocks";
+        "XF86AudioLowerVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@   5%- --limit 1.0 && pkill -RTMIN+2 i3blocks";
+        "XF86AudioMute"        = "exec --no-startup-id wpctl set-mute   @DEFAULT_AUDIO_SINK@   toggle          && pkill -RTMIN+2 i3blocks";
+        "XF86AudioMicMute"     = "exec --no-startup-id wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ toggle          && pkill -RTMIN+2 i3blocks";
+
+        # use brightnessctl to adjust brightness
+        "XF86MonBrightnessUp"   = "exec --no-startup-id brightnessctl s 5%+ && pkill -RTMIN+3 i3blocks";
+        "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl s 5%- && pkill -RTMIN+3 i3blocks";
       };
       modes = {
         resize = {
@@ -119,51 +133,24 @@ in {
           "Control+Right" = "resize grow   width  10 px";
           "Escape" = "mode default";
         };
+        "${modeSystem}" = {
+          "k"       = "exec --no-startup-id xset s activate,                        mode default";
+          "l"       = "exec --no-startup-id i3-msg exit,                            mode default";
+          "s"       = "exec --no-startup-id xset s activate && systemctl suspend,   mode default";
+          "r"       = "exec --no-startup-id reboot,                                 mode default";
+          "Shift+s" = "exec --no-startup-id shutdown now,                           mode default";
+          "Return"  = "mode default";
+          "Escape"  = "mode default";
+        };
       };
+      startup = [
+        { command = "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock"; notification = false; }
+      ];
       bars = [{
         fonts = { names = [ "JetBrainsMono NF" ]; size = 10.0; };
         position = "bottom";
         statusCommand = "SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks";
       }];
     };
-    extraConfig = ''
-# use pactl to adjust volume in PulseAudio
-set $refresh_volume pkill -RTMIN+2 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@   5%+ --limit 1.0 && $refresh_volume
-bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@   5%- --limit 1.0 && $refresh_volume
-bindsym XF86AudioMute        exec --no-startup-id wpctl set-mute   @DEFAULT_AUDIO_SINK@   toggle          && $refresh_volume
-bindsym XF86AudioMicMute     exec --no-startup-id wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ toggle          && $refresh_volume
-
-# use brightnessctl to adjust brightness
-set $refresh_brightness pkill -RTMIN+3 i3blocks
-bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl s 5%+ && $refresh_brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_brightness
-
-# take screenshot and save file
-# bindsym ${mod}+Alt+c exec escrotum -s '$HOME/Pictures/screenshot-%Y%m%d-%H%M%S.png'
-
-# enable float for some windows
-for_window [class="^Pavucontrol$"] floating enable
-
-set $mode_system nixtest, loc[k], [l]ogout, [s]uspend, [h]ibernate, [r]eboot, [S]hutdown
-bindsym ${mod}+Escape mode "$mode_system"
-set $i3lock xset s activate
-mode "$mode_system" {
-	bindsym k exec --no-startup-id           $i3lock,              mode "default"
-	bindsym l exec --no-startup-id           i3-msg exit,          mode "default"
-	bindsym s exec --no-startup-id $i3lock && systemctl suspend,   mode "default"
-	bindsym h exec --no-startup-id $i3lock && systemctl hibernate, mode "default"
-	bindsym r exec --no-startup-id           reboot,               mode "default"
-	bindsym Shift+s exec --no-startup-id     shutdown now,         mode "default"
-
-	# back to normal: Enter or Escape
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-
-
-# startup programs + settings
-exec --no-startup-id xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
-    '';
   };
 }
