@@ -46,6 +46,7 @@
     anki-bin        # spaced repetition system app
     brightnessctl   # control screen brightness
     cargo           # rust dependency manager
+    clang-tools     # tools for c/c++
     clipmenu        # inspect clipboard with dmen
     cmus            # console music player
     dig             # DNS tool
