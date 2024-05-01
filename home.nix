@@ -10,6 +10,7 @@
     pointerCursor = {
       name = "Adwaita";
       package = pkgs.gnome.adwaita-icon-theme;
+      size = 32;
     };
 
     packages = with pkgs; [
@@ -30,6 +31,9 @@
 
       ".config/nvim/init.lua".source = ./home/nvim/init.lua;
       ".config/nvim/lazy-lock.json".source = ./home/nvim/lazy-lock.json;
+
+      ".gtkrc-2.0".source = ./home/gtk/settings-2.0.ini;
+      ".config/gtk-3.0/settings.ini".source = ./home/gtk/settings-3.0.ini;
     };
 
     sessionVariables = {
