@@ -14,7 +14,46 @@
     };
 
     packages = with pkgs; [
-      gnome.adwaita-icon-theme
+      acpi            # ACPI battery info
+      anki-bin        # spaced repetition system app
+      brightnessctl   # control screen brightness
+      cargo           # rust dependency manager
+      clang-tools     # tools for c/c++
+      cmus            # console music player
+      dig             # DNS tool
+      dunst           # notification daemon
+      feh             # image viewer
+      ffmpeg          # convert video/audio formats
+      file            # view info about a file
+      firefox         # web browser
+      fusee-nano      # nintendo switch payload injector
+      gcc             # C/C++ compiler
+      ghidra          # disassembler/decompiler
+      hplip           # HP printer drivers
+      hyfetch         # pride flags neofetch
+      man-pages       # linux man pages
+      mpv             # media player
+      musescore       # music notation
+      nix-index       # nixpkgs database
+      p7zip           # extract .7z archives
+      pass            # password manager
+      pinentry-gtk2   # enter GPG password
+      prismlauncher   # minecraft launcher
+      qbittorrent-nox # bittorrent client
+      ripgrep         # easier-to-use alternative to grep
+      rustc           # rust compiler
+      steam-run       # run games that have FHS requirements
+      unzip           # extract .zip archives
+      usbutils        # usb cli utils
+      vlc             # media player
+      wezterm         # terminal
+      wget            # download web files
+      wireguard-tools # view wireguard status
+      wirelesstools   # wireless tools
+      x265            # decode H.265 video codec
+      
+      # python 3.12
+      (python312.withPackages(ps: with ps; [ mutagen ]))
     ];
 
     file = {
@@ -40,13 +79,40 @@
     
     };
 
-    stateVersion = "23.11";
+    stateVersion = "25.05";
   };
-  
-  programs.kitty.settings = {
-    enable_audio_bell = false;
+
+  wayland.windowManager.sway = {
+    enable = true;
   };
+
+  services.dunst.enable = true;
   
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-gtk2;
+    defaultCacheTtl = 120;
+    maxCacheTtl = 120;
+  };
+
+  programs.git = {
+    enable = true;
+    userEmail = "tetraxile@proton.me";
+    userName = "tetraxile";
+    signing.key = "AB1243FD5015BF6A";
+
+    extraConfig = {
+      credential.helper = "cache";
+      commit.gpgsign = true;
+      tag.gpgsign = true;
+      url."https://".insteadof = "git://";
+      init.defaultBranch = "main";
+      http.sslVerify = false;
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+    }
+  };
+
   programs.zsh = {
     enable = true;
     defaultKeymap = "emacs";
