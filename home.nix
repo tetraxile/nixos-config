@@ -42,7 +42,6 @@
       qbittorrent-nox # bittorrent client
       ripgrep         # easier-to-use alternative to grep
       rustc           # rust compiler
-      steam-run       # run games that have FHS requirements
       unzip           # extract .zip archives
       usbutils        # usb cli utils
       vlc             # media player

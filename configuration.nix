@@ -29,6 +29,8 @@
 
   time.timeZone = "Europe/Dublin";
 
+  console.keyMap = "ie";
+
   environment.shellAliases = {
     ls = "ls --color=auto";
     cal = "cal -m";
@@ -60,7 +62,9 @@
       pulse.enable = true;
     };
 
-    # systemd-resolved
+    openssh = {
+      enable = true;
+    };
 
     locate = {
       enable = true;
@@ -87,15 +91,6 @@
       enable = true;
       defaultEditor = true;
     };
-  
-    # enable running unpackaged non-nix executables
-    nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        # Add any missing dynamic libraries for unpackaged programs
-        # here, NOT in environment.systemPackages
-      ];
-    };
   };
 
   users.defaultUserShell = pkgs.zsh;
@@ -103,6 +98,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     packages = [];
+    openssh.authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me" ];
   };
 
   home-manager = {
@@ -113,7 +109,7 @@
   };
 
   i18n = {
-    defaultLocale = "en_GB.UTF-8";
+    defaultLocale = "en_IE.UTF-8";
     inputMethod.enabled = "fcitx5";
     inputMethod.fcitx5.addons = with pkgs; [ fcitx5-mozc ];
   };
