@@ -9,7 +9,7 @@
 
     pointerCursor = {
       name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       size = 32;
     };
 
@@ -110,7 +110,7 @@
       http.sslVerify = false;
       push.autoSetupRemote = true;
       pull.rebase = true;
-    }
+    };
   };
 
   programs.zsh = {

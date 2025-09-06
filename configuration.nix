@@ -30,7 +30,7 @@
   time.timeZone = "Europe/Dublin";
 
   environment.shellAliases = {
-    ls = "ls --color=auto"
+    ls = "ls --color=auto";
     cal = "cal -m";
     feh = "feh --force-aliasing --keep-zoom-vp";
     neofetch = "hyfetch";
@@ -42,7 +42,7 @@
 
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      nerd-fonts.jetbrains-mono
       noto-fonts-cjk-serif
     ];
 
@@ -65,7 +65,6 @@
     locate = {
       enable = true;
       package = pkgs.mlocate;
-      localuser = null;
     };
 
     printing = {
