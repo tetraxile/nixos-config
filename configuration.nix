@@ -79,6 +79,11 @@
 
     openssh = {
       enable = true;
+      ports = [ 22 ];
+      settings = {
+        PasswordAuthentication = true;
+        PermitRootLogin = "no";
+      };
     };
 
     locate = {
@@ -96,7 +101,7 @@
       useTextGreeter = true;
       settings = {
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
           user = "greeter";
         };
       };
