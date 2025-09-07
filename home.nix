@@ -20,10 +20,8 @@
       cargo           # rust dependency manager
       clang-tools     # tools for c/c++
       cmus            # console music player
-      dig             # DNS tool
       dmenu-wayland   # wayland launcher menu
       dunst           # notification daemon
-      feh             # image viewer
       ffmpeg          # convert video/audio formats
       file            # view info about a file
       floorp          # web browser
@@ -89,81 +87,161 @@
     };
   };
 
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.sway = {
     enable = true;
+    wrapperFeatures.gtk = true;
     extraConfig = ''
-      monitor = eDP-1,preferred,auto,1
+      set $mod Mod4
+      set $alt Mod1
 
-      $mod = SUPER
-
-      $terminal = wezterm
-      $menu = dmenu-wl_run
-      $browser = floorp
-
-      bind = $mod, RETURN, exec, $terminal
-      bind = $mod, q, exec, $browser
-      bind = $mod, d, exec, $menu
-      bind = $mod, c, exec, slurp | grim -g - - | wl-copy
-
-      bindle = , XF86MonBrightnessUp, exec, brightnessctl s 5%+
-      bindle = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
-      bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      bindle = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      bindl = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-
-      bind = $mod SHIFT, q, killactive,
-      bind = $mod SHIFT, space, togglefloating,
-      bind = $mod, Up, movefocus, u
-      bind = $mod, Down, movefocus, d
-      bind = $mod, Left, movefocus, l
-      bind = $mod, Right, movefocus, r
-      bind = $mod SHIFT, Up, movewindow, u
-      bind = $mod SHIFT, Down, movewindow, d
-      bind = $mod SHIFT, Left, movewindow, l
-      bind = $mod SHIFT, Right, movewindow, r
-      bind = $mod, 1, workspace, 1
-      bind = $mod, 2, workspace, 2
-      bind = $mod, 3, workspace, 3
-      bind = $mod, 4, workspace, 4
-      bind = $mod, 5, workspace, 5
-      bind = $mod, 6, workspace, 6
-      bind = $mod, 7, workspace, 7
-      bind = $mod, 8, workspace, 8
-      bind = $mod, 9, workspace, 9
-      bind = $mod SHIFT, 1, focusworkspaceoncurrentmonitor, 1
-      bind = $mod SHIFT, 2, focusworkspaceoncurrentmonitor, 2
-      bind = $mod SHIFT, 3, focusworkspaceoncurrentmonitor, 3
-      bind = $mod SHIFT, 4, focusworkspaceoncurrentmonitor, 4
-      bind = $mod SHIFT, 5, focusworkspaceoncurrentmonitor, 5
-      bind = $mod SHIFT, 6, focusworkspaceoncurrentmonitor, 6
-      bind = $mod SHIFT, 7, focusworkspaceoncurrentmonitor, 7
-      bind = $mod SHIFT, 8, focusworkspaceoncurrentmonitor, 8
-      bind = $mod SHIFT, 9, focusworkspaceoncurrentmonitor, 9
-
-      input {
-        kb_layout = ie
-        repeat_delay = 200
-        repeat_rate = 30
-
-        touchpad {
-          natural_scroll = yes
-          scroll_factor = 0.2
-        }
+      input "type:touchpad" {
+        natural_scroll enabled
+        tap enabled
+        accel_profile "flat"
+        scroll_factor 0.2
+        pointer_accel 0.5
       }
 
-      animations {
-        enabled = false
+      input "type:keyboard" {
+        repeat_delay 200
+        repeat_rate 30
       }
 
-      misc {
-        disable_hyprland_logo = true
-      }
+      bindsym $mod+Return exec wezterm
+      bindsym $mod+q exec floorp
+      bindsym $mod+c exec slurp | grim -g - - | wl-copy
+      bindsym $mod+d exec dmenu-wl_run
 
-      exec-once = dunst
-      exec = pkill waybar && sleep 0.5 && waybar
+      bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+      bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+      bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
+      bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+
+      bindsym $mod+1 workspace number 1
+      bindsym $mod+2 workspace number 2
+      bindsym $mod+3 workspace number 3
+      bindsym $mod+4 workspace number 4
+      bindsym $mod+5 workspace number 5
+      bindsym $mod+6 workspace number 6
+      bindsym $mod+7 workspace number 7
+      bindsym $mod+8 workspace number 8
+      bindsym $mod+9 workspace number 9
+      bindsym $mod+Shift+1 move container to workspace number 1
+      bindsym $mod+Shift+2 move container to workspace number 2
+      bindsym $mod+Shift+3 move container to workspace number 3
+      bindsym $mod+Shift+4 move container to workspace number 4
+      bindsym $mod+Shift+5 move container to workspace number 5
+      bindsym $mod+Shift+6 move container to workspace number 6
+      bindsym $mod+Shift+7 move container to workspace number 7
+      bindsym $mod+Shift+8 move container to workspace number 8
+      bindsym $mod+Shift+9 move container to workspace number 9
+
+      bindsym $mod+x move workspace to output next
+
+      bindsym $mod+Up focus up
+      bindsym $mod+Down focus down
+      bindsym $mod+Left focus left
+      bindsym $mod+Right focus right
+      bindsym $mod+Shift+Up move up
+      bindsym $mod+Shift+Down move down
+      bindsym $mod+Shift+Left move left
+      bindsym $mod+Shift+Right move right
+
+      bindsym $mod+a focus parent
+      bindsym $mod+g focus child
+
+      bindsym $mod+Shift+q kill
+      bindsym $mod+Shift+space floating toggle
+      bindsym $mod+f fullscreen toggle
+      
+      bindsym $mod+e layout toggle split
+      bindsym $mod+s layout stacking
+      bindsym $mod+w layout tabbed
+      bindsym $mod+v split v
+      bindsym $mod+h split h
+
+      bindsym $mod+Shift+c reload
+      bindsym $mod+Shift+r restart
     '';
   };
+
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     monitor = eDP-1,preferred,auto,1
+  #
+  #     $mod = SUPER
+  #
+  #     $terminal = wezterm
+  #     $menu = dmenu-wl_run
+  #     $browser = floorp
+  #
+  #     bind = $mod, RETURN, exec, $terminal
+  #     bind = $mod, q, exec, $browser
+  #     bind = $mod, d, exec, $menu
+  #     bind = $mod, c, exec, slurp | grim -g - - | wl-copy
+  #
+  #     bindle = , XF86MonBrightnessUp, exec, brightnessctl s 5%+
+  #     bindle = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
+  #     bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+  #     bindle = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+  #     bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+  #     bindl = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+  #
+  #     bind = $mod SHIFT, q, killactive,
+  #     bind = $mod SHIFT, space, togglefloating,
+  #     bind = $mod, Up, movefocus, u
+  #     bind = $mod, Down, movefocus, d
+  #     bind = $mod, Left, movefocus, l
+  #     bind = $mod, Right, movefocus, r
+  #     bind = $mod SHIFT, Up, movewindow, u
+  #     bind = $mod SHIFT, Down, movewindow, d
+  #     bind = $mod SHIFT, Left, movewindow, l
+  #     bind = $mod SHIFT, Right, movewindow, r
+  #     bind = $mod, 1, workspace, 1
+  #     bind = $mod, 2, workspace, 2
+  #     bind = $mod, 3, workspace, 3
+  #     bind = $mod, 4, workspace, 4
+  #     bind = $mod, 5, workspace, 5
+  #     bind = $mod, 6, workspace, 6
+  #     bind = $mod, 7, workspace, 7
+  #     bind = $mod, 8, workspace, 8
+  #     bind = $mod, 9, workspace, 9
+  #     bind = $mod SHIFT, 1, focusworkspaceoncurrentmonitor, 1
+  #     bind = $mod SHIFT, 2, focusworkspaceoncurrentmonitor, 2
+  #     bind = $mod SHIFT, 3, focusworkspaceoncurrentmonitor, 3
+  #     bind = $mod SHIFT, 4, focusworkspaceoncurrentmonitor, 4
+  #     bind = $mod SHIFT, 5, focusworkspaceoncurrentmonitor, 5
+  #     bind = $mod SHIFT, 6, focusworkspaceoncurrentmonitor, 6
+  #     bind = $mod SHIFT, 7, focusworkspaceoncurrentmonitor, 7
+  #     bind = $mod SHIFT, 8, focusworkspaceoncurrentmonitor, 8
+  #     bind = $mod SHIFT, 9, focusworkspaceoncurrentmonitor, 9
+  #
+  #     input {
+  #       kb_layout = ie
+  #       repeat_delay = 200
+  #       repeat_rate = 30
+  #
+  #       touchpad {
+  #         natural_scroll = yes
+  #         scroll_factor = 0.2
+  #       }
+  #     }
+  #
+  #     animations {
+  #       enabled = false
+  #     }
+  #
+  #     misc {
+  #       disable_hyprland_logo = true
+  #     }
+  #
+  #     exec-once = dunst
+  #     exec = pkill waybar && sleep 0.5 && waybar
+  #   '';
+  # };
 
   services = {
     dunst.enable = true;
