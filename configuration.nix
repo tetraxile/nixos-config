@@ -31,6 +31,21 @@
 
   console.keyMap = "ie";
 
+  i18n = {
+    defaultLocale = "nl_NL.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "nl_NL.UTF-8";
+      LC_IDENTIFICATION = "nl_NL.UTF-8";
+      LC_MEASUREMENT = "nl_NL.UTF-8";
+      LC_MONETARY = "nl_NL.UTF-8";
+      LC_NAME = "nl_NL.UTF-8";
+      LC_NUMERIC = "nl_NL.UTF-8";
+      LC_PAPER = "nl_NL.UTF-8";
+      LC_TELEPHONE = "nl_NL.UTF-8";
+      LC_TIME = "nl_NL.UTF-8";
+    };
+  };
+
   environment.shellAliases = {
     ls = "ls --color=auto";
     cal = "cal -m";
@@ -75,6 +90,17 @@
       enable = true;
       drivers = [ pkgs.hplip ];
     };
+
+    greetd = {
+      enable = true;
+      useTextGreeter = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
   };
   
   security = {
@@ -87,6 +113,8 @@
   programs = {
     zsh.enable = true;
 
+    vim.enable = true;
+
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -98,7 +126,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     packages = [];
-    openssh.authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me" ];
+    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me" ];
   };
 
   home-manager = {
@@ -106,12 +134,6 @@
     users = {
       "tetra" = import ./home.nix;
     };
-  };
-
-  i18n = {
-    defaultLocale = "en_IE.UTF-8";
-    inputMethod.enabled = "fcitx5";
-    inputMethod.fcitx5.addons = with pkgs; [ fcitx5-mozc ];
   };
 
   # allow building certain packages with unfree licenses

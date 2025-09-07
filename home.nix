@@ -81,17 +81,32 @@
     stateVersion = "25.05";
   };
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-mozc
+      ];
+    };
+  };
+
+
   wayland.windowManager.sway = {
     enable = true;
   };
 
-  services.dunst.enable = true;
+  services = {
+    dunst.enable = true;
   
-  services.gpg-agent = {
-    enable = true;
-    pinentry.package = pkgs.pinentry-gtk2;
-    defaultCacheTtl = 120;
-    maxCacheTtl = 120;
+    gpg-agent = {
+      enable = true;
+      pinentry.package = pkgs.pinentry-gtk2;
+      defaultCacheTtl = 120;
+      maxCacheTtl = 120;
+    };
+
   };
 
   programs.git = {
@@ -115,7 +130,7 @@
   programs.zsh = {
     enable = true;
     defaultKeymap = "emacs";
-    initExtra = ''
+    initContent = ''
       unsetopt beep
 
       bindkey "^[[3~" delete-char       # Del = delete character right
@@ -127,7 +142,12 @@
       zstyle :compinstall filename "$HOME/.zshrc"
       zstyle ':completion:*' rehash true
 
-      export PROMPT="%B%2~%b %# ";
+      if [[ -z "$SSH_CLIENT" ]]; then
+        export PROMPT="%B%2~%b %(?..[%F{red}%?%f] )%# ";
+      else
+        export PROMPT="%B%n@%M:%2~%b %(?..[%F{red}%?%f] )%# ";
+      fi
+
     '';
   };
 
