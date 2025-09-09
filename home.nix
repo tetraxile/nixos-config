@@ -63,7 +63,7 @@
         wl-clipboard    # wayland clipboard utilities
         x265            # decode H.265 video codec
       ]
-      else [];
+      else []
     );
 
     file = {
