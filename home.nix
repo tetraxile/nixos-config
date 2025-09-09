@@ -1,4 +1,4 @@
-{ config, pkgs, specialArgs, isDesktop, ... }:
+{ config, pkgs, isDesktop, ... }:
 
 {
   imports = [ ./home/i3.nix ];
@@ -330,8 +330,5 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager = {
-    enable = true;
-    extraSpecialArgs = specialArgs;
-  };
+  programs.home-manager.enable = true;
 }

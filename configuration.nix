@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, specialArgs, ... }:
 
 {
   imports = [
@@ -133,7 +133,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = specialArgs;
     users = {
       "tetra" = import ./home.nix;
     };
