@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ./system/${specialArgs.hostname}/hardware-configuration.nix
     inputs.home-manager.nixosModules.default
   ];
 
