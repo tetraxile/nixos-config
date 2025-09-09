@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, specialArgs, isDesktop, ... }:
 
 {
   imports = [ ./home/i3.nix ];
@@ -77,7 +77,7 @@
   };
 
   i18n.inputMethod = {
-    enable = true;
+    enable = isDesktop;
     type = "fcitx5";
     fcitx5 = {
       waylandFrontend = true;
@@ -88,7 +88,7 @@
   };
 
   wayland.windowManager.sway = {
-    enable = true;
+    enable = isDesktop;
     wrapperFeatures.gtk = true;
     extraConfig = ''
       set $mod Mod4
@@ -244,7 +244,7 @@
   # };
 
   services = {
-    dunst.enable = true;
+    dunst.enable = isDesktop;
   
     gpg-agent = {
       enable = true;
@@ -297,11 +297,11 @@
   };
 
   programs.vesktop = {
-    enable = true;
+    enable = isDesktop;
   };
 
   programs.waybar = {
-    enable = true;
+    enable = isDesktop;
     settings = {
       mainBar = {
         position = "bottom";
@@ -330,5 +330,8 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+    extraSpecialArgs = specialArgs;
+  };
 }

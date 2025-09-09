@@ -9,7 +9,10 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.catbox = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        isDesktop = true;
+      };
       modules = [
         ./configuration.nix
         inputs.home-manager.nixosModules.default

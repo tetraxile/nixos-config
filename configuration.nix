@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    ./modules/dunst.nix
   ];
 
   boot.loader = {
