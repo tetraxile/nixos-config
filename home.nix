@@ -14,52 +14,57 @@
     };
 
     packages = with pkgs; [
-      acpi            # ACPI battery info
-      anki-bin        # spaced repetition system app
-      brightnessctl   # control screen brightness
       cargo           # rust dependency manager
       clang-tools     # tools for c/c++
-      cmus            # console music player
-      dmenu-wayland   # wayland launcher menu
-      dunst           # notification daemon
       ffmpeg          # convert video/audio formats
       file            # view info about a file
-      floorp          # web browser
-      fusee-nano      # nintendo switch payload injector
       gcc             # C/C++ compiler
-      ghidra          # disassembler/decompiler
       gnupg           # GNU OpenPGP implementation
-      grim            # wayland screenshot
-      hplip           # HP printer drivers
       hyfetch         # pride flags neofetch
-      hyprpicker      # wayland color picker
       man-pages       # linux man pages
-      mpv             # media player
-      musescore       # music notation
       nix-index       # nixpkgs database
       p7zip           # extract .7z archives
       pass            # password manager
-      pavucontrol     # pulseaudio volume control
-      pinentry-gtk2   # enter GPG password
-      prismlauncher   # minecraft launcher
-      qbittorrent-nox # bittorrent client
       ripgrep         # easier-to-use alternative to grep
       rustc           # rust compiler
-      slurp           # select wayland region
       unzip           # extract .zip archives
       usbutils        # usb cli utils
-      vlc             # media player
-      waybar          # wayland bar
-      wezterm         # terminal
       wget            # download web files
-      wireguard-tools # view wireguard status
-      wirelesstools   # wireless tools
-      wl-clipboard    # wayland clipboard utilities
-      x265            # decode H.265 video codec
       
       # python 3.12
       (python312.withPackages(ps: with ps; [ mutagen ]))
-    ];
+    ] ++ (
+      if isDesktop
+      then [
+        acpi            # ACPI battery info
+        anki-bin        # spaced repetition system app
+        brightnessctl   # control screen brightness
+        cmus            # console music player
+        dmenu-wayland   # wayland launcher menu
+        dunst           # notification daemon
+        floorp          # web browser
+        ghidra          # disassembler/decompiler
+        grim            # wayland screenshot
+        hplip           # HP printer drivers
+        hyprpicker      # wayland color picker
+        mpv             # media player
+        pavucontrol     # pulseaudio volume control
+        pinentry-gtk2   # enter GPG password
+        prismlauncher   # minecraft launcher
+        fusee-nano      # nintendo switch payload injector
+        musescore       # music notation
+        qbittorrent-nox # bittorrent client
+        slurp           # select wayland region
+        vlc             # media player
+        waybar          # wayland bar
+        wezterm         # terminal
+        wireguard-tools # view wireguard status
+        wirelesstools   # wireless tools
+        wl-clipboard    # wayland clipboard utilities
+        x265            # decode H.265 video codec
+      ]
+      else [];
+    );
 
     file = {
       ".config/nvim/init.lua".source = ./home/nvim/init.lua;
