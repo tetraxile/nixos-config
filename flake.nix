@@ -8,15 +8,30 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations.catbox = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs;
-        isDesktop = true;
+    nixosConfigurations = {
+      catbox = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          isDesktop = true;
+          hostname = "catbox";
+        };
+        modules = [
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
       };
-      modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.default
-      ];
+      dovecote = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          isDesktop = true;
+          hostname = "dovecote";
+        };
+        modules = [
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+
     };
   };
 }

@@ -13,7 +13,7 @@
   };
 
   networking = {
-    hostName = "catbox";
+    hostName = specialArgs.hostname;
     networkmanager.enable = true;
 
     hosts = {
@@ -103,6 +103,25 @@
           user = "greeter";
         };
       };
+    };
+  };
+
+  xdg = {
+    mime.enable = true;
+    portal = {
+      config = {
+        common = {
+          default = [
+            "wlr"
+          ];
+        };
+      };
+
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
   };
   
