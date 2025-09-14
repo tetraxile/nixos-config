@@ -171,15 +171,7 @@
     };
   };
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      SDL2
-      SDL
-    ];
-  };
-
-  # allow building certain packages with unfree licenses
+   # allow building certain packages with unfree licenses
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
   #   "steam"
   #   "steam-original"
