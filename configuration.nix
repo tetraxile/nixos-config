@@ -1,9 +1,10 @@
-{ config, lib, pkgs, inputs, specialArgs, ... }:
+{ config, lib, pkgs, inputs, hostName, isDesktop, specialArgs, ... }:
 
 {
   imports = [
-    ./system/${specialArgs.hostname}/hardware-configuration.nix
+    ./system/${hostName}/hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    ./overlays.nix
   ];
 
   boot.loader = {
@@ -13,13 +14,13 @@
   };
 
   networking = {
-    hostName = specialArgs.hostname;
+    hostName = hostName;
     networkmanager.enable = true;
 
     hosts = {
       "192.168.1.1" = ["router"];
       "192.168.1.166" = ["printer"];
-      "192.168.1.210" = ["switch"];
+      "192.168.1.210" = ["raspberry"];
       "192.168.1.214" = ["dovecote"];
       "192.168.1.215" = ["catbox"];
       "192.168.1.216" = ["switch"];
@@ -54,7 +55,13 @@
 
   environment.variables = { };
 
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [
+    unstable.factorio
+  ];
+
+  system.extraDependencies = with pkgs; [
+    unstable.factorio.src
+  ];
 
   fonts = {
     packages = with pkgs; [
@@ -104,6 +111,15 @@
         };
       };
     };
+
+    xserver.xkb = {
+      extraLayouts = import ./xkb;
+    };
+
+    tailscale = {
+      enable = true;
+      package = pkgs.unstable.tailscale;
+    };
   };
 
   xdg = {
@@ -133,8 +149,6 @@
   };
 
   programs = {
-    zsh.enable = true;
-
     vim.enable = true;
 
     neovim = {
@@ -143,25 +157,40 @@
     };
   };
 
-  users.defaultUserShell = pkgs.zsh;
+  hardware = {
+    graphics.enable = isDesktop;
+  };
+
+  users.defaultUserShell = pkgs.nushell;
   users.users.tetra = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "video" ];
     packages = [];
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me" ];
   };
 
   home-manager = {
+    useGlobalPkgs = true;
     extraSpecialArgs = specialArgs;
     users = {
-      "tetra" = import ./home.nix;
+      "tetra" = import ./home;
     };
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      SDL2
+      SDL
+    ];
   };
 
   # allow building certain packages with unfree licenses
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  #   "steam"
+  #   "steam-original"
+  #   "steam-unwrapped"
   #   "steam-run"
-  #   "steam-original-1.0.0.74"
   # ];
   nixpkgs.config.allowUnfree = true;
 

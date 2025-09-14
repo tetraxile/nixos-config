@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -13,7 +14,7 @@
         specialArgs = {
           inherit inputs;
           isDesktop = true;
-          hostname = "catbox";
+          hostName = "catbox";
         };
         modules = [
           ./configuration.nix
@@ -24,7 +25,7 @@
         specialArgs = {
           inherit inputs;
           isDesktop = true;
-          hostname = "dovecote";
+          hostName = "dovecote";
         };
         modules = [
           ./configuration.nix

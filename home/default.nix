@@ -1,9 +1,11 @@
-{ config, pkgs, isDesktop, ... }:
+{ config, pkgs, isDesktop, specialArgs, ... }:
 
 {
-  imports = [ ./home/i3.nix ];
+  imports = [ ./sway ];
 
   home = {
+    stateVersion = "25.05";
+
     username = "tetra";
     homeDirectory = "/home/tetra";
 
@@ -29,10 +31,7 @@
       rustc           # rust compiler
       unzip           # extract .zip archives
       usbutils        # usb cli utils
-      wget            # download web files
-      
-      # python 3.12
-      (python312.withPackages(ps: with ps; [ mutagen ]))
+      wget            # download web files      
     ] ++ (
       if isDesktop
       then [
@@ -40,7 +39,6 @@
         anki-bin        # spaced repetition system app
         brightnessctl   # control screen brightness
         cmus            # console music player
-        dmenu-wayland   # wayland launcher menu
         dunst           # notification daemon
         floorp          # web browser
         ghidra          # disassembler/decompiler
@@ -55,30 +53,35 @@
         musescore       # music notation
         qbittorrent-nox # bittorrent client
         slurp           # select wayland region
+        steam-run
         vlc             # media player
         waybar          # wayland bar
         wezterm         # terminal
         wireguard-tools # view wireguard status
         wirelesstools   # wireless tools
         wl-clipboard    # wayland clipboard utilities
+        wmenu           # wayland launcher menu
         x265            # decode H.265 video codec
+        xfce.thunar     # file browser & FTP client
+
+        # python 3.12
+        (python312.withPackages(ps: with ps; [ mutagen ]))
       ]
       else []
     );
 
     file = {
-      ".config/nvim/init.lua".source = ./home/nvim/init.lua;
-      ".config/nvim/lazy-lock.json".source = ./home/nvim/lazy-lock.json;
+      ".config/nvim/init.lua".source = ./nvim/init.lua;
+      ".config/nvim/lazy-lock.json".source = ./nvim/lazy-lock.json;
 
-      ".gtkrc-2.0".source = ./home/gtk/settings-2.0.ini;
-      ".config/gtk-3.0/settings.ini".source = ./home/gtk/settings-3.0.ini;
+      ".gtkrc-2.0".source = ./gtk/settings-2.0.ini;
+      ".config/gtk-3.0/settings.ini".source = ./gtk/settings-3.0.ini;
     };
 
     sessionVariables = {
     
     };
 
-    stateVersion = "25.05";
   };
 
   i18n.inputMethod = {
@@ -90,86 +93,6 @@
         fcitx5-mozc
       ];
     };
-  };
-
-  wayland.windowManager.sway = {
-    enable = isDesktop;
-    wrapperFeatures.gtk = true;
-    extraConfig = ''
-      set $mod Mod4
-      set $alt Mod1
-
-      input "type:touchpad" {
-        natural_scroll enabled
-        tap enabled
-        accel_profile "flat"
-        scroll_factor 0.2
-        pointer_accel 0.5
-      }
-
-      input "type:keyboard" {
-        repeat_delay 200
-        repeat_rate 30
-      }
-
-      bindsym $mod+Return exec wezterm
-      bindsym $mod+q exec floorp
-      bindsym $mod+c exec slurp | grim -g - - | wl-copy
-      bindsym $mod+d exec dmenu-wl_run
-
-      bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-      bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
-      bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
-
-      bindsym $mod+1 workspace number 1
-      bindsym $mod+2 workspace number 2
-      bindsym $mod+3 workspace number 3
-      bindsym $mod+4 workspace number 4
-      bindsym $mod+5 workspace number 5
-      bindsym $mod+6 workspace number 6
-      bindsym $mod+7 workspace number 7
-      bindsym $mod+8 workspace number 8
-      bindsym $mod+9 workspace number 9
-      bindsym $mod+Shift+1 move container to workspace number 1
-      bindsym $mod+Shift+2 move container to workspace number 2
-      bindsym $mod+Shift+3 move container to workspace number 3
-      bindsym $mod+Shift+4 move container to workspace number 4
-      bindsym $mod+Shift+5 move container to workspace number 5
-      bindsym $mod+Shift+6 move container to workspace number 6
-      bindsym $mod+Shift+7 move container to workspace number 7
-      bindsym $mod+Shift+8 move container to workspace number 8
-      bindsym $mod+Shift+9 move container to workspace number 9
-
-      bindsym $mod+x move workspace to output next
-
-      bindsym $mod+Up focus up
-      bindsym $mod+Down focus down
-      bindsym $mod+Left focus left
-      bindsym $mod+Right focus right
-      bindsym $mod+Shift+Up move up
-      bindsym $mod+Shift+Down move down
-      bindsym $mod+Shift+Left move left
-      bindsym $mod+Shift+Right move right
-
-      bindsym $mod+a focus parent
-      bindsym $mod+g focus child
-
-      bindsym $mod+Shift+q kill
-      bindsym $mod+Shift+space floating toggle
-      bindsym $mod+f fullscreen toggle
-      
-      bindsym $mod+e layout toggle split
-      bindsym $mod+s layout stacking
-      bindsym $mod+w layout tabbed
-      bindsym $mod+v split v
-      bindsym $mod+h split h
-
-      bindsym $mod+Shift+c reload
-      bindsym $mod+Shift+r restart
-    '';
   };
 
   # wayland.windowManager.hyprland = {
@@ -275,6 +198,11 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
     };
+  };
+
+  programs.wezterm = {
+    enable = isDesktop;
+    extraConfig = builtins.readFile ./wezterm/wezterm.lua;
   };
 
   programs.zsh = {
