@@ -55,13 +55,7 @@
 
   environment.variables = { };
 
-  environment.systemPackages = with pkgs; [
-    unstable.factorio
-  ];
-
-  system.extraDependencies = with pkgs; [
-    unstable.factorio.src
-  ];
+  environment.systemPackages = with pkgs; [];
 
   fonts = {
     packages = with pkgs; [
