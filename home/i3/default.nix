@@ -46,7 +46,7 @@
             "${mod}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu";
 
             # start dmenu
-            "${mod}+d" = "exec --no-startup-id SHELL=/bin/sh ${pkgs.dmenu}/bin/dmenu_run";
+            "${mod}+d" = "exec --no-startup-id ${./dmenu_run.nu}";
 
             # start browser
             "${mod}+q" = "exec ${pkgs.floorp}/bin/floorp";
