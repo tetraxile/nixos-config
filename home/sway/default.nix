@@ -4,7 +4,7 @@
   specialArgs,
   ...
 }: {
-  imports = [ ./i3blocks ];
+  imports = [./i3blocks];
 
   wayland.windowManager.sway = {
     enable = isDesktop;
@@ -29,25 +29,30 @@
         };
       };
 
-      output = if specialArgs.hostName == "dovecote" then {
-        DP-3 = {
-          pos = "0 0";
-          res = "1920x1080";
-        };
-        HDMI-A-1 = {
-          pos = "1920 0";
-          res = "1920x1080";
-        };
-      } else if specialArgs.hostName == "catbox" then {
-        eDP-1 = {
-          pos = "0 0";
-          res = "1920x1080";
-        };
-        HDMI-A-0 = {
-          pos = "1920 0";
-          res = "1920x1080";
-        };
-      } else {};
+      output =
+        if specialArgs.hostName == "dovecote"
+        then {
+          DP-3 = {
+            pos = "0 0";
+            res = "1920x1080";
+          };
+          HDMI-A-1 = {
+            pos = "1920 0";
+            res = "1920x1080";
+          };
+        }
+        else if specialArgs.hostName == "catbox"
+        then {
+          eDP-1 = {
+            pos = "0 0";
+            res = "1920x1080";
+          };
+          HDMI-A-0 = {
+            pos = "1920 0";
+            res = "1920x1080";
+          };
+        }
+        else {};
 
       keybindings = let
         mod = "Mod4";
@@ -101,7 +106,7 @@
         "${mod}+Shift+q" = "kill";
         "${mod}+Shift+space" = "floating toggle";
         "${mod}+f" = "fullscreen toggle";
-        
+
         "${mod}+e" = "layout toggle split";
         "${mod}+s" = "layout stacking";
         "${mod}+w" = "layout tabbed";
@@ -113,6 +118,4 @@
       };
     };
   };
-
-
 }

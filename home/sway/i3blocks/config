@@ -9,11 +9,8 @@ markup=pango
 [vpn]
 interval=5
 
-[wifi]
-command=iwgetid -r
+[network]
 interval=5
-label=<span color="#ff79c6"> </span>
-instance=wlp2s0
 
 [volume]
 interval=once
@@ -28,3 +25,4 @@ interval=2
 
 [datetime]
 interval=1
+format=json

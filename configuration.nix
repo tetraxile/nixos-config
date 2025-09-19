@@ -1,6 +1,13 @@
-{ config, lib, pkgs, inputs, hostName, isDesktop, specialArgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  hostName,
+  isDesktop,
+  specialArgs,
+  ...
+}: {
   imports = [
     ./system/${hostName}/hardware-configuration.nix
     inputs.home-manager.nixosModules.default
@@ -24,6 +31,9 @@
       "192.168.1.214" = ["dovecote"];
       "192.168.1.215" = ["catbox"];
       "192.168.1.216" = ["switch"];
+      "100.70.181.9" = ["kokuzo"];
+      "100.88.144.9" = ["aubrey"];
+      "100.109.123.23" = ["nala"];
     };
   };
 
@@ -53,9 +63,12 @@
     neofetch = "hyfetch";
   };
 
-  environment.variables = { };
+  environment.variables = {};
 
   environment.systemPackages = with pkgs; [];
+
+  # required for i3blocks ?
+  environment.pathsToLink = ["/libexec"];
 
   fonts = {
     packages = with pkgs; [
@@ -64,7 +77,7 @@
     ];
 
     fontconfig.defaultFonts = {
-      monospace = [ "JetBrainsMonoNL NF" ];
+      monospace = ["JetBrainsMonoNL NF"];
     };
   };
 
@@ -79,7 +92,7 @@
 
     openssh = {
       enable = true;
-      ports = [ 22 ];
+      ports = [22];
       settings = {
         PasswordAuthentication = true;
         PermitRootLogin = "no";
@@ -93,48 +106,53 @@
 
     printing = {
       enable = true;
-      drivers = [ pkgs.hplip ];
+      drivers = [pkgs.hplip];
     };
 
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-          user = "greeter";
-        };
+    libinput = {
+      enable = isDesktop;
+      touchpad = {
+        naturalScrolling = true;
+      };
+
+      mouse = {
+        accelProfile = "flat";
+        accelSpeed = "-0.1";
       };
     };
 
-    xserver.xkb = {
-      extraLayouts = import ./xkb;
+    displayManager = {
+      ly.enable = true;
+      defaultSession = "none+i3";
+    };
+
+    xserver = {
+      enable = isDesktop;
+
+      windowManager.i3.enable = true;
+
+      xkb = {
+        layout = "tetra";
+        extraLayouts = import ./xkb;
+      };
+
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 30;
+    };
+
+    picom = {
+      enable = isDesktop;
+      vSync = true;
     };
 
     tailscale = {
       enable = true;
       package = pkgs.unstable.tailscale;
     };
+
+    # openvpn.servers.ny.config = "config /home/tetra/.local/share/pia/nl_amsterdam-aes-128-cbc-udp-dns.ovpn";
   };
 
-  xdg = {
-    mime.enable = true;
-    portal = {
-      config = {
-        common = {
-          default = [
-            "wlr"
-          ];
-        };
-      };
-
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
-  };
-  
   security = {
     # enable realtime priority for pulseaudio
     rtkit.enable = true;
@@ -151,16 +169,16 @@
     };
   };
 
+  # enable hardware accelerated graphics
   hardware = {
     graphics.enable = isDesktop;
   };
 
-  users.defaultUserShell = pkgs.nushell;
   users.users.tetra = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
-    packages = [];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me" ];
+    extraGroups = ["wheel" "networkmanager" "video"];
+    shell = pkgs.nushell;
+    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me"];
   };
 
   home-manager = {
@@ -169,9 +187,10 @@
     users = {
       "tetra" = import ./home;
     };
+    backupFileExtension = "hmbak";
   };
 
-   # allow building certain packages with unfree licenses
+  # allow building certain packages with unfree licenses
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
   #   "steam"
   #   "steam-original"
@@ -180,8 +199,7 @@
   # ];
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   system.stateVersion = "25.05";
 }
-
