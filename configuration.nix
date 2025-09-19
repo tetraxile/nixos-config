@@ -7,7 +7,8 @@
   isDesktop,
   specialArgs,
   ...
-}: {
+}:
+{
   imports = [
     ./system/${hostName}/hardware-configuration.nix
     inputs.home-manager.nixosModules.default
@@ -25,15 +26,15 @@
     networkmanager.enable = true;
 
     hosts = {
-      "192.168.1.1" = ["router"];
-      "192.168.1.166" = ["printer"];
-      "192.168.1.210" = ["raspberry"];
-      "192.168.1.214" = ["dovecote"];
-      "192.168.1.215" = ["catbox"];
-      "192.168.1.216" = ["switch"];
-      "100.70.181.9" = ["kokuzo"];
-      "100.88.144.9" = ["aubrey"];
-      "100.109.123.23" = ["nala"];
+      "192.168.1.1" = [ "router" ];
+      "192.168.1.166" = [ "printer" ];
+      "192.168.1.210" = [ "raspberry" ];
+      "192.168.1.214" = [ "dovecote" ];
+      "192.168.1.215" = [ "catbox" ];
+      "192.168.1.216" = [ "switch" ];
+      "100.70.181.9" = [ "kokuzo" ];
+      "100.88.144.9" = [ "aubrey" ];
+      "100.109.123.23" = [ "nala" ];
     };
   };
 
@@ -63,12 +64,12 @@
     neofetch = "hyfetch";
   };
 
-  environment.variables = {};
+  environment.variables = { };
 
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [ ];
 
   # required for i3blocks ?
-  environment.pathsToLink = ["/libexec"];
+  environment.pathsToLink = [ "/libexec" ];
 
   fonts = {
     packages = with pkgs; [
@@ -77,7 +78,7 @@
     ];
 
     fontconfig.defaultFonts = {
-      monospace = ["JetBrainsMonoNL NF"];
+      monospace = [ "JetBrainsMonoNL NF" ];
     };
   };
 
@@ -92,7 +93,7 @@
 
     openssh = {
       enable = true;
-      ports = [22];
+      ports = [ 22 ];
       settings = {
         PasswordAuthentication = true;
         PermitRootLogin = "no";
@@ -106,7 +107,7 @@
 
     printing = {
       enable = true;
-      drivers = [pkgs.hplip];
+      drivers = [ pkgs.hplip ];
     };
 
     libinput = {
@@ -176,9 +177,15 @@
 
   users.users.tetra = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "video"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ];
     shell = pkgs.nushell;
-    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me"];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmGxomnzFUz6CMy9NyghrhN1vQ0oeFw2bBdJEd6M9uH tetraxile@proton.me"
+    ];
   };
 
   home-manager = {
@@ -199,7 +206,10 @@
   # ];
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.stateVersion = "25.05";
 }

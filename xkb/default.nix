@@ -1,7 +1,7 @@
 {
   tetra = {
     description = "tetra's custom layout";
-    languages = ["custom"];
+    languages = [ "custom" ];
     symbolsFile = ./tetra-layout;
   };
 }

@@ -4,8 +4,12 @@
   isDesktop,
   specialArgs,
   ...
-}: {
-  imports = [./i3 ./nushell];
+}:
+{
+  imports = [
+    ./i3
+    ./nushell
+  ];
 
   home = {
     stateVersion = "25.05";
@@ -19,7 +23,8 @@
       size = 32;
     };
 
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
         cargo # rust dependency manager
         clang-tools # tools for c/c++
@@ -39,37 +44,38 @@
         wget # download web files
       ]
       ++ (
-        if isDesktop
-        then [
-          acpi # ACPI battery info
-          anki-bin # spaced repetition system app
-          alejandra # nix formatter
-          brightnessctl # control screen brightness
-          cmus # console music player
-          dunst # notification daemon
-          floorp # web browser
-          ghidra # disassembler/decompiler
-          hplip # HP printer drivers
-          mpv # media player
-          pavucontrol # pulseaudio volume control
-          pinentry-gtk2 # enter GPG password
-          prismlauncher # minecraft launcher
-          fusee-nano # nintendo switch payload injector
-          musescore # music notation
-          qbittorrent-nox # bittorrent client
-          steam-run
-          vlc # media player
-          vscodium # IDE
-          wezterm # terminal
-          wireguard-tools # view wireguard status
-          wirelesstools # wireless tools
-          x265 # decode H.265 video codec
-          xfce.thunar # file browser & FTP client
+        if isDesktop then
+          [
+            acpi # ACPI battery info
+            anki-bin # spaced repetition system app
+            brightnessctl # control screen brightness
+            cmus # console music player
+            dunst # notification daemon
+            floorp # web browser
+            ghidra # disassembler/decompiler
+            hplip # HP printer drivers
+            mpv # media player
+            pavucontrol # pulseaudio volume control
+            pinentry-gtk2 # enter GPG password
+            prismlauncher # minecraft launcher
+            fusee-nano # nintendo switch payload injector
+            musescore # music notation
+            nixfmt-tree # nix formatter
+            qbittorrent-nox # bittorrent client
+            steam-run
+            vlc # media player
+            vscodium # IDE
+            wezterm # terminal
+            wireguard-tools # view wireguard status
+            wirelesstools # wireless tools
+            x265 # decode H.265 video codec
+            xfce.thunar # file browser & FTP client
 
-          # python 3.12
-          (python312.withPackages (ps: with ps; [mutagen]))
-        ]
-        else []
+            # python 3.12
+            (python312.withPackages (ps: with ps; [ mutagen ]))
+          ]
+        else
+          [ ]
       );
 
     file = {
@@ -252,9 +258,14 @@
       mainBar = {
         position = "bottom";
         height = 0;
-        modules-left = ["hyprland/workspaces"];
-        modules-center = ["clock"];
-        modules-right = ["tray" "battery" "network" "pulseaudio"];
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "tray"
+          "battery"
+          "network"
+          "pulseaudio"
+        ];
 
         "battery" = {
           format = "bat {capacity}%";

@@ -2,8 +2,9 @@
   config,
   pkgs,
   ...
-}: {
-  imports = [./module.nix];
+}:
+{
+  imports = [ ./module.nix ];
 
   home.packages = [
     pkgs.i3blocks
@@ -13,7 +14,7 @@
     bars = [
       {
         fonts = {
-          names = ["JetBrainsMono NF"];
+          names = [ "JetBrainsMono NF" ];
           size = 10.0;
         };
         position = "bottom";

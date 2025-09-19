@@ -8,36 +8,38 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: {
-    nixosConfigurations = {
-      catbox = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          isDesktop = true;
-          hostName = "catbox";
+  outputs =
+    {
+      self,
+      nixpkgs,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations = {
+        catbox = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            isDesktop = true;
+            hostName = "catbox";
+          };
+          modules = [
+            ./configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
         };
-        modules = [
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-      dovecote = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          isDesktop = true;
-          hostName = "dovecote";
+        dovecote = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            isDesktop = true;
+            hostName = "dovecote";
+          };
+          modules = [
+            ./configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
         };
-        modules = [
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
       };
-    };
 
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-  };
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+    };
 }
