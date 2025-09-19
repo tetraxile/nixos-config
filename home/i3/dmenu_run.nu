@@ -1,2 +1,3 @@
 #!/usr/bin/env nu
-dmenu_path | dmenu | run-external $in
+let meow = dmenu_path | dmenu | split row ' ';
+run-external ...$meow;
