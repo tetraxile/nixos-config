@@ -40,7 +40,7 @@
       {
         name = "network";
         interval = 5;
-        command = toString ./scripts/network;
+        command = toString ./scripts/network.nu;
         json = true;
       }
 
@@ -68,7 +68,7 @@
         name = "datetime";
         interval = 1;
         json = true;
-        command = toString ./scripts/datetime;
+        command = toString ./scripts/datetime.nu;
       }
     ];
   };
