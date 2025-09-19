@@ -3,5 +3,5 @@
 let interface = sys net | where {($in | get name) =~ "^[ew]" and ($in | get ip | length) > 0} | first | get name;
 
 {
-  full_text: $"<span color="#ff79c6"> </span> $interface"
+  full_text: $'<span color="#ff79c6"> </span> ($interface)'
 } | to json | print

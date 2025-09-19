@@ -5,7 +5,7 @@
   specialArgs,
   ...
 }: {
-  # imports = [./i3blocks];
+  imports = [./i3blocks];
 
   home.packages = with pkgs; [
     dmenu
@@ -171,16 +171,6 @@
         {
           command = "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock";
           notification = false;
-        }
-      ];
-      bars = [
-        {
-          fonts = {
-            names = ["JetBrainsMono NF"];
-            size = 10.0;
-          };
-          position = "bottom";
-          statusCommand = "i3blocks";
         }
       ];
     };
