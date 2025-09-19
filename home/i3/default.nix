@@ -11,7 +11,7 @@
   home.packages = with pkgs; [
     dmenu
     clipmenu
-    scrot
+    escrotum
     xclip
     xsecurelock
     xss-lock
@@ -56,7 +56,7 @@
             # switch input method
 
             # take screenshot and copy to clipboard
-            "${mod}+c" = "exec --no-startup-id scrot -s - | xclip -selection clipboard -target image/png";
+            "${mod}+c" = "exec --no-startup-id escrotum -sC";
 
             # take screenshot and save to file
             # "${mod}+Alt+c" = "exec escrotum -s '$HOME/Pictures/screenshot-%Y%m%d-%H%M%S.png'";
