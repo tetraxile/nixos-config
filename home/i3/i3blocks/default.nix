@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  hostName,
   ...
 }:
 {
@@ -30,47 +31,73 @@
       markup = "pango";
     };
 
-    blocks = [
-      {
-        name = "vpn";
-        interval = 5;
-        command = toString ./scripts/vpn;
-      }
-
-      {
-        name = "network";
-        interval = 5;
-        command = toString ./scripts/network.nu;
-        json = true;
-      }
-
-      {
-        name = "volume";
-        interval = "once";
-        signal = 2;
-        command = toString ./scripts/volume.nu;
-        json = true;
-      }
-
-      {
-        name = "brightness";
-        interval = "once";
-        signal = 3;
-        command = toString ./scripts/brightness;
-      }
-
-      {
-        name = "battery";
-        signal = 2;
-        command = toString ./scripts/battery;
-      }
-
-      {
-        name = "datetime";
-        interval = 1;
-        json = true;
-        command = toString ./scripts/datetime.nu;
-      }
-    ];
+    blocks =
+      if hostName == "catbox" then
+        [
+          {
+            name = "vpn";
+            interval = 5;
+            command = toString ./scripts/vpn;
+          }
+          {
+            name = "network";
+            interval = 5;
+            command = toString ./scripts/network.nu;
+            json = true;
+          }
+          {
+            name = "volume";
+            interval = "once";
+            signal = 2;
+            command = toString ./scripts/volume.nu;
+            json = true;
+          }
+          {
+            name = "brightness";
+            interval = "once";
+            signal = 3;
+            command = toString ./scripts/brightness;
+          }
+          {
+            name = "battery";
+            signal = 2;
+            command = toString ./scripts/battery;
+          }
+          {
+            name = "datetime";
+            interval = 1;
+            json = true;
+            command = toString ./scripts/datetime.nu;
+          }
+        ]
+      else if hostName == "dovecote" then
+        [
+          {
+            name = "vpn";
+            interval = 5;
+            command = toString ./scripts/vpn;
+          }
+          {
+            name = "network";
+            interval = 5;
+            command = toString ./scripts/network.nu;
+            json = true;
+          }
+          {
+            name = "volume";
+            interval = "once";
+            signal = 2;
+            command = toString ./scripts/volume.nu;
+            json = true;
+          }
+          {
+            name = "datetime";
+            interval = 1;
+            json = true;
+            command = toString ./scripts/datetime.nu;
+          }
+        ]
+      else
+        [ ];
   };
 }
