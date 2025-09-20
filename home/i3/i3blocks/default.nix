@@ -48,7 +48,8 @@
         name = "volume";
         interval = "once";
         signal = 2;
-        command = toString ./scripts/volume;
+        command = toString ./scripts/volume.nu;
+        json = true;
       }
 
       {
