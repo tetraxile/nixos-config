@@ -92,13 +92,13 @@
 
     gtk2.extraConfig = ''
       gtk-cursor-theme-name="Adwaita"
-      gtk-cursor-theme-size=32
+      gtk-cursor-theme-size=24
       gtk-error-bell=0
     '';
 
     gtk3.extraConfig = {
       gtk-cursor-theme-name = "Adwaita";
-      gtk-cursor-theme-size = 32;
+      gtk-cursor-theme-size = 24;
       gtk-error-bell = 0;
     };
   };
