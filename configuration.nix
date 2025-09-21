@@ -15,6 +15,8 @@
     ./overlays.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   boot.loader = {
     # use systemd-boot EFI boot loader
     systemd-boot.enable = true;
@@ -95,6 +97,7 @@
       enable = true;
       ports = [ 22 ];
       settings = {
+        X11Forwarding = true;
         PasswordAuthentication = true;
         PermitRootLogin = "no";
       };
@@ -148,7 +151,7 @@
 
     tailscale = {
       enable = true;
-      package = pkgs.unstable.tailscale;
+      package = pkgs.tailscale;
     };
 
     # openvpn.servers.ny.config = "config /home/tetra/.local/share/pia/nl_amsterdam-aes-128-cbc-udp-dns.ovpn";

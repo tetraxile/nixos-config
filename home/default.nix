@@ -51,7 +51,6 @@
             brightnessctl # control screen brightness
             cmus # console music player
             dunst # notification daemon
-            floorp # web browser
             ghidra # disassembler/decompiler
             hplip # HP printer drivers
             mpv # media player
@@ -70,6 +69,7 @@
             wirelesstools # wireless tools
             x265 # decode H.265 video codec
             xfce.thunar # file browser & FTP client
+            zen-browser # web browser
 
             # python 3.12
             (python312.withPackages (ps: with ps; [ mutagen ]))
