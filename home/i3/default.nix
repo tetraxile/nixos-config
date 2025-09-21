@@ -53,7 +53,9 @@
 
             # eyedropper
             # zoomer
+
             # switch input method
+            "${mod}+Tab" = "exec --no-startup-id fcitx5-remote -t";
 
             # take screenshot and copy to clipboard
             "${mod}+c" = "exec --no-startup-id escrotum -sC";
