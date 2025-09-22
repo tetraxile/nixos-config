@@ -42,17 +42,17 @@
   console.keyMap = "ie";
 
   i18n = {
-    defaultLocale = "nl_NL.UTF-8";
+    defaultLocale = "de_DE.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS = "nl_NL.UTF-8";
-      LC_IDENTIFICATION = "nl_NL.UTF-8";
-      LC_MEASUREMENT = "nl_NL.UTF-8";
-      LC_MONETARY = "nl_NL.UTF-8";
-      LC_NAME = "nl_NL.UTF-8";
-      LC_NUMERIC = "nl_NL.UTF-8";
-      LC_PAPER = "nl_NL.UTF-8";
-      LC_TELEPHONE = "nl_NL.UTF-8";
-      LC_TIME = "nl_NL.UTF-8";
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
     };
   };
 
