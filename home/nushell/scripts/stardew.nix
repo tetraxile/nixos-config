@@ -3,6 +3,7 @@ mkShell {
   buildInputs = [
     dotnet-sdk
     mono
+    openssl
   ];
   LD_LIBRARY_PATH = lib.makeLibraryPath [
     freetype
@@ -10,6 +11,7 @@ mkShell {
     pulseaudio
     xorg.libX11
     xorg.libXrandr
+    openssl
   ];
 
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
