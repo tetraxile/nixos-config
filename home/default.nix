@@ -42,32 +42,39 @@
         unzip # extract .zip archives
         usbutils # usb cli utils
         wget # download web files
+        htop
       ]
       ++ (
         if isDesktop then
           [
             acpi # ACPI battery info
-            anki-bin # spaced repetition system app
             brightnessctl # control screen brightness
-            cmus # console music player
-            dunst # notification daemon
-            ghidra # disassembler/decompiler
-            hplip # HP printer drivers
-            mpv # media player
-            pavucontrol # pulseaudio volume control
-            pinentry-gtk2 # enter GPG password
-            prismlauncher # minecraft launcher
             fusee-nano # nintendo switch payload injector
-            musescore # music notation
             nixfmt-tree # nix formatter
-            qbittorrent-nox # bittorrent client
             steam-run
+            wireguard-tools # view wireguard status
+            wirelesstools # wireless tools
+            xorg.xkill
+
+            pinentry-gtk2 # enter GPG password
+            x265 # decode H.265 video codec
+            hplip # HP printer drivers
+
+            dunst # notification daemon
+
+            anki-bin # spaced repetition system app
+            cmus # console music player
+            ghidra # disassembler/decompiler
+            mpv # media player
+            musescore # music notation
+            obsidian
+            pavucontrol # pulseaudio volume control
+            prismlauncher # minecraft launcher
+            qbittorrent-nox # bittorrent client
+            thunderbird # calendar
             vlc # media player
             vscodium # IDE
             wezterm # terminal
-            wireguard-tools # view wireguard status
-            wirelesstools # wireless tools
-            x265 # decode H.265 video codec
             xfce.thunar # file browser & FTP client
             zen-browser # web browser
 
