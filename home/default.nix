@@ -130,6 +130,8 @@
       defaultCacheTtl = 120;
       maxCacheTtl = 120;
     };
+
+    protonmail-bridge.enable = isDesktop;
   };
 
   programs.git = {
