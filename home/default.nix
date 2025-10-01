@@ -62,14 +62,16 @@
 
             dunst # notification daemon
 
-            anki-bin # spaced repetition system app
+            anki # spaced repetition system app
             cmus # console music player
             ghidra # disassembler/decompiler
             mpv # media player
             musescore # music notation
+            nicotine-plus
             obsidian
             pavucontrol # pulseaudio volume control
             prismlauncher # minecraft launcher
+            puddletag # music tagging
             qbittorrent-nox # bittorrent client
             thunderbird # calendar
             vlc # media player
