@@ -42,5 +42,7 @@
         zen-browser = zen-browser.packages.${final.system}.default;
       }
     )
+
+    (final: prev: import ./packages prev)
   ];
 }

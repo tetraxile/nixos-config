@@ -73,10 +73,19 @@
   fonts = {
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-      noto-fonts-cjk-serif
+      noto-fonts
+      klee-one
     ];
 
     fontconfig.defaultFonts = {
+      serif = [
+        "Noto Serif"
+        "Klee One"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Klee One"
+      ];
       monospace = [ "JetBrainsMonoNL NF" ];
     };
   };

@@ -20,6 +20,21 @@
       ...
     }@inputs:
     {
+      packages.x86_64-linux = import ./packages (
+        import nixpkgs {
+          system = "x86_64-linux";
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          config = {
+            # allowUnfree = true;
+            # allowInsecurePredicate = pkg: true;
+          };
+        }
+      );
+
       nixosConfigurations = {
         catbox = nixpkgs.lib.nixosSystem {
           specialArgs = {

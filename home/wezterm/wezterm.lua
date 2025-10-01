@@ -10,6 +10,15 @@ config.window_padding = {
   bottom = 0,
 }
 
+config.font = wezterm.font_with_fallback {
+  "JetBrainsMono NF",
+  {
+    family = "Klee One",
+    scale = 1.2,
+  }
+}
+
 config.harfbuzz_features = { 'calt = 0', 'clig = 0', 'liga = 0' }
+
 
 return config
