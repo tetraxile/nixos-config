@@ -25,7 +25,9 @@
 
   networking = {
     hostName = hostName;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+    };
 
     hosts = {
       "192.168.1.1" = [ "router" ];
@@ -97,6 +99,14 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+
+      extraConfig = {
+        pipewire."99-silent-bell.conf" = {
+          "context.properties" = {
+            "module.x11.bell" = false;
+          };
+        };
+      };
     };
 
     openssh = {
