@@ -25,6 +25,7 @@
 
   networking = {
     hostName = hostName;
+    firewall.enable = false;
     networkmanager = {
       enable = true;
     };
@@ -39,7 +40,7 @@
     };
   };
 
-  time.timeZone = "Europe/Dublin";
+  time.timeZone = "Europe/Berlin";
 
   console.keyMap = "ie";
 

@@ -28,6 +28,7 @@
       [
         cargo # rust dependency manager
         clang-tools # tools for c/c++
+        fastfetch # neofetch replacement
         ffmpeg # convert video/audio formats
         file # view info about a file
         gcc # C/C++ compiler
@@ -42,7 +43,7 @@
         unzip # extract .zip archives
         usbutils # usb cli utils
         wget # download web files
-        htop
+        bottom # system monitor
       ]
       ++ (
         if isDesktop then
@@ -54,7 +55,7 @@
             steam-run
             wireguard-tools # view wireguard status
             wirelesstools # wireless tools
-            xorg.xkill
+            xkill
 
             pinentry-gtk2 # enter GPG password
             x265 # decode H.265 video codec
@@ -64,6 +65,7 @@
 
             anki # spaced repetition system app
             cmus # console music player
+            floorp-bin # web browser
             ghidra # disassembler/decompiler
             krita
             mpv # media player
@@ -77,12 +79,11 @@
             thunderbird # calendar
             vlc # media player
             vscodium # IDE
-            wezterm # terminal
-            xfce.thunar # file browser & FTP client
-            zen-browser # web browser
+            wezterm # terminal1
+            thunar # file browser & FTP client
 
-            # python 3.12
-            (python312.withPackages (ps: with ps; [ mutagen ]))
+            # python
+            (python314.withPackages (ps: with ps; [ mutagen ]))
           ]
         else
           [ ]
@@ -111,6 +112,8 @@
       gtk-cursor-theme-size = 24;
       gtk-error-bell = 0;
     };
+
+    gtk4.theme = null;
   };
 
   i18n.inputMethod = {
@@ -139,11 +142,13 @@
 
   programs.git = {
     enable = true;
-    userEmail = "tetraxile@proton.me";
-    userName = "tetraxile";
-    signing.key = "AB1243FD5015BF6A";
+    settings = {
+      user = {
+        email = "tetraxile@proton.me";
+        name = "tetraxile";
+        signingKey = "AB1243FD5015BF6A";
+      };
 
-    extraConfig = {
       credential.helper = "cache";
       commit.gpgsign = true;
       tag.gpgsign = true;

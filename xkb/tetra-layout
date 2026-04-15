@@ -41,8 +41,8 @@ xkb_symbols "tetra" {
 	key <AC08>  {[            k,           K,              oe,                  OE ]};
 	key <AC09>  {[            l,           L,         lstroke,             Lstroke ]};
 	key <AC10>  {[    semicolon,       colon,  dead_diaeresis,            NoSymbol ]};
-	key <AC11>  {[   apostrophe,          at,      dead_acute,          dead_grave ]};
-	key <BKSL>  {[   numbersign,  asciitilde,   dead_abovedot,      periodcentered ]};
+	key <AC11>  {[   apostrophe,          at,      dead_acute,       dead_abovedot ]};
+	key <BKSL>  {[   numbersign,  asciitilde,      dead_grave,      periodcentered ]};
 
 	key <LSGT>  {[    backslash,         bar,    dead_cedilla,         dead_ogonek ]};
 	key <AB01>  {[            z,           Z,              ae,                  AE ]};

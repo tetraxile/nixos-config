@@ -9,8 +9,8 @@ mkShell {
     freetype
     libGL
     pulseaudio
-    xorg.libX11
-    xorg.libXrandr
+    libx11
+    libxrandr
     openssl
   ];
 

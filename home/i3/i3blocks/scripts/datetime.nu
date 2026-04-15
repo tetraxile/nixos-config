@@ -22,7 +22,7 @@ if $btn == 2 {
 
 mut date_str = "";
 if $is_current {
-  # example: za 2025-09-20 12:34:56 IST
+  # example: Sa 2025-09-20 12:34:56 IST
   let fmt_str = '+%a %F %X <span color="#f1fa8c">%Z</span>';
   $date_str = ^date $fmt_str;
 } else {
@@ -37,7 +37,7 @@ if $is_current {
   $tz_index = ($tz_index + $offset) mod ($timezones | length);
   let tz = $timezones | get $tz_index;
 
-  # example: za 2025-09-20 12:34 IST (UTC+01)
+  # example: Sa 2025-09-20 12:34 IST (UTC+01)
   let fmt_str = '+%a %F %H<span color="#f1fa8c">:</span>%M<span color="#f1fa8c"> %Z</span> (UTC%:::z)'
   $date_str = TZ=$tz ^date $fmt_str;
 }

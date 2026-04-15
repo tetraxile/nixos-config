@@ -5,12 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs =
@@ -29,8 +24,8 @@
           };
 
           config = {
-            # allowUnfree = true;
-            # allowInsecurePredicate = pkg: true;
+            allowUnfree = true;
+            allowInsecurePredicate = pkg: true;
           };
         }
       );

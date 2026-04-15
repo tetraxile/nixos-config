@@ -39,7 +39,6 @@
     (
       final: prev: with inputs; {
         inherit inputs;
-        zen-browser = zen-browser.packages.${final.system}.default;
       }
     )
 

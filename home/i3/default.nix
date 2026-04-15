@@ -49,7 +49,7 @@
             "${mod}+d" = "exec --no-startup-id ${./dmenu_run.nu}";
 
             # start browser
-            "${mod}+q" = "exec ${pkgs.zen-browser}/bin/zen";
+            "${mod}+q" = "exec ${pkgs.floorp-bin}/bin/floorp";
 
             # eyedropper
             # zoomer
