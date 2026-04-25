@@ -40,13 +40,14 @@
         file # view info about a file
         gcc # C/C++ compiler
         gnupg # GNU OpenPGP implementation
+        hactool
         hyfetch # pride flags neofetch
+        jq # pretty print JSON
         man-pages # linux man pages
         nix-index # nixpkgs database
         p7zip # extract .7z archives
         pass # password manager
         ripgrep # easier-to-use alternative to grep
-        rustc # rust compiler
         unzip # extract .zip archives
         usbutils # usb cli utils
         wget # download web files
@@ -81,8 +82,11 @@
             obsidian
             pavucontrol # pulseaudio volume control
             prismlauncher # minecraft launcher
+            proton-vpn # VPN client
             puddletag # music tagging
             qbittorrent-nox # bittorrent client
+            texstudio # LaTeX editor
+            texliveFull # LaTeX distribution
             thunderbird # calendar
             vlc # media player
             vscodium # IDE
