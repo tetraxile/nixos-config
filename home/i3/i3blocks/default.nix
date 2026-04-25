@@ -60,7 +60,7 @@
           }
           {
             name = "battery";
-            signal = 2;
+            interval = 30;
             command = toString ./scripts/battery;
           }
           {
