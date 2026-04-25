@@ -3,12 +3,15 @@
   pkgs,
   isDesktop,
   specialArgs,
+  inputs,
   ...
 }:
 {
   imports = [
     ./i3
     ./nushell
+    ./nixcord.nix
+    inputs.nixcord.homeModules.nixcord
   ];
 
   home = {
@@ -163,10 +166,6 @@
   programs.wezterm = {
     enable = isDesktop;
     extraConfig = builtins.readFile ./wezterm/wezterm.lua;
-  };
-
-  programs.vesktop = {
-    enable = isDesktop;
   };
 
   # Let Home Manager install and manage itself.
