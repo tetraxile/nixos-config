@@ -13,8 +13,19 @@
     {
       self,
       nixpkgs,
+      nixpkgs-stable,
       ...
     }@inputs:
+    let
+      overlays = [
+        (final: _: {
+          stable-pkgs = import nixpkgs-stable {
+            system = final.stdenv.hostPlatform.system;
+          };
+        })
+      ];
+      overlaysModule = _: { nixpkgs.overlays = overlays; };
+    in
     {
       packages.x86_64-linux = import ./packages (
         import nixpkgs {
@@ -41,6 +52,7 @@
           modules = [
             ./configuration.nix
             inputs.home-manager.nixosModules.default
+            overlaysModule
           ];
         };
         dovecote = nixpkgs.lib.nixosSystem {
@@ -52,6 +64,7 @@
           modules = [
             ./configuration.nix
             inputs.home-manager.nixosModules.default
+            overlaysModule
           ];
         };
       };

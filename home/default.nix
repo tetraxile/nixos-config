@@ -69,8 +69,8 @@
             anki # spaced repetition system app
             cmus # console music player
             floorp-bin # web browser
-            ghidra # disassembler/decompiler
-            krita
+            stable-pkgs.ghidra # disassembler/decompiler
+            stable-pkgs.krita
             mpv # media player
             musescore # music notation
             nicotine-plus
