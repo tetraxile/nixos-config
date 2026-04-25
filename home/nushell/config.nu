@@ -1,4 +1,12 @@
 $env.config.show_banner = false
+$env.config.history = {
+  max_size: 100_000
+  sync_on_enter: true
+  file_format: "sqlite"
+  isolation: true
+};
+
+$env.config.filesize.unit = "binary";
 
 alias nsu = nix-shell --command nu
 
