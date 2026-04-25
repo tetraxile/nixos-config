@@ -25,8 +25,14 @@
 
   networking = {
     hostName = hostName;
-    firewall.enable = false;
+
+    firewall = {
+      checkReversePath = false;
+      enable = false;
+    };
+
     networkmanager = {
+      wifi.powersave = false;
       enable = true;
     };
 
