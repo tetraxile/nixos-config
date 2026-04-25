@@ -10,7 +10,11 @@
   imports = [
     ./i3
     ./nushell
+    ./xmodmap.nix
     ./nixcord.nix
+    ./git.nix
+    ./gtk.nix
+    ./fcitx.nix
     inputs.nixcord.homeModules.nixcord
   ];
 
@@ -101,35 +105,6 @@
     };
   };
 
-  gtk = {
-    enable = isDesktop;
-
-    gtk2.extraConfig = ''
-      gtk-cursor-theme-name="Adwaita"
-      gtk-cursor-theme-size=24
-      gtk-error-bell=0
-    '';
-
-    gtk3.extraConfig = {
-      gtk-cursor-theme-name = "Adwaita";
-      gtk-cursor-theme-size = 24;
-      gtk-error-bell = 0;
-    };
-
-    gtk4.theme = null;
-  };
-
-  i18n.inputMethod = {
-    enable = isDesktop;
-    type = "fcitx5";
-    fcitx5 = {
-      waylandFrontend = true;
-      addons = with pkgs; [
-        fcitx5-mozc
-      ];
-    };
-  };
-
   services = {
     dunst.enable = isDesktop;
 
@@ -140,26 +115,9 @@
       maxCacheTtl = 120;
     };
 
-    protonmail-bridge.enable = isDesktop;
-  };
-
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        email = "tetraxile@proton.me";
-        name = "tetraxile";
-        signingKey = "AB1243FD5015BF6A";
-      };
-
-      credential.helper = "cache";
-      commit.gpgsign = true;
-      tag.gpgsign = true;
-      url."https://".insteadof = "git://";
-      init.defaultBranch = "main";
-      http.sslVerify = false;
-      push.autoSetupRemote = true;
-      pull.rebase = true;
+    protonmail-bridge = {
+      enable = isDesktop;
+      package = pkgs.protonmail-bridge;
     };
   };
 
