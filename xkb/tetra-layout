@@ -6,7 +6,7 @@ xkb_symbols "tetra" {
 
 	key <TLDE>  {[        grave,     notsign,      dead_tilde,            NoSymbol ]};
 	key <AE01>  {[            1,      exclam,      exclamdown,         onesuperior ]};
-	key <AE02>  {[            2,    quotedbl,     twosuperior,    dead_doubleacute ]};
+	key <AE02>  {[            2,    quotedbl,     twosuperior,  doublelowquotemark ]};
 	key <AE03>  {[            3,           3,   threesuperior,           copyright ]};
 	key <AE04>  {[            4,      dollar,        EuroSign,                cent ]};
 	key <AE05>  {[            5,     percent,        permille,            NoSymbol ]};
