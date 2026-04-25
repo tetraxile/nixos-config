@@ -195,6 +195,10 @@
       enable = true;
       defaultEditor = true;
     };
+
+    steam.enable = true;
+
+    direnv.enable = true;
   };
 
   # enable hardware accelerated graphics
