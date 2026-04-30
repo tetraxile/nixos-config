@@ -11,11 +11,12 @@
     ./i3
     ./nushell
     ./xmodmap.nix
-    ./nixcord.nix
     ./git.nix
     ./gtk.nix
     ./fcitx.nix
     ./zsh.nix
+    ./stardew
+    ./nixcord.nix
     inputs.nixcord.homeModules.nixcord
   ];
 
