@@ -182,6 +182,11 @@
       package = pkgs.tailscale;
     };
 
+    protonmail-bridge = {
+      enable = isDesktop;
+      package = pkgs.protonmail-bridge;
+    };
+
     # openvpn.servers.ny.config = "config /home/tetra/.local/share/pia/nl_amsterdam-aes-128-cbc-udp-dns.ovpn";
   };
 
@@ -189,7 +194,10 @@
     # enable realtime priority for pulseaudio
     rtkit.enable = true;
 
-    sudo.enable = true;
+    sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
   };
 
   programs = {

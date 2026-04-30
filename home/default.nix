@@ -43,6 +43,7 @@
         gnupg # GNU OpenPGP implementation
         hactool
         hyfetch # pride flags neofetch
+        inetutils
         jq # pretty print JSON
         man-pages # linux man pages
         nix-index # nixpkgs database
@@ -91,7 +92,7 @@
             thunderbird # calendar
             vlc # media player
             vscodium # IDE
-            wezterm # terminal1
+            wezterm # terminal
             thunar # file browser & FTP client
 
             # python
@@ -118,11 +119,6 @@
       pinentry.package = pkgs.pinentry-gtk2;
       defaultCacheTtl = 120;
       maxCacheTtl = 120;
-    };
-
-    protonmail-bridge = {
-      enable = isDesktop;
-      package = pkgs.protonmail-bridge;
     };
   };
 
