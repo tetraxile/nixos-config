@@ -15,6 +15,7 @@
     ./git.nix
     ./gtk.nix
     ./fcitx.nix
+    ./zsh.nix
     inputs.nixcord.homeModules.nixcord
   ];
 
