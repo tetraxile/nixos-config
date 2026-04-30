@@ -10,4 +10,4 @@ fi
 _rx=$(echo "$_output" | cut -f2 | numfmt --to=iec-i --suffix=B --format="%9.2f")
 _tx=$(echo "$_output" | cut -f3 | numfmt --to=iec-i --suffix=B --format="%9.2f")
 
-printf " %s  %s\n" $_rx $_tx
+printf "󱤖 %s 󱥩 %s\n" $_rx $_tx

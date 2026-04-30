@@ -15,7 +15,7 @@
     bars = [
       {
         fonts = {
-          names = [ "JetBrainsMono NF" ];
+          names = [ "monospace" ];
           size = 10.0;
         };
         position = "bottom";

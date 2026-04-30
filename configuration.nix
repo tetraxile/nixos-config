@@ -81,22 +81,28 @@
 
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
+      jetbrains-mono
       noto-fonts
       noto-fonts-cjk-serif
       klee-one
+      nasin-nanpa
+      nasin-nanpa-helvetica
     ];
 
     fontconfig.defaultFonts = {
       serif = [
         "Noto Serif"
         "Klee One"
+        "nasin\-nanpa"
       ];
       sansSerif = [
         "Noto Sans"
         "Klee One"
+        "nasin\-nanpa"
       ];
-      monospace = [ "JetBrainsMonoNL NF" ];
+      monospace = [
+        "JetBrains Mono NL"
+      ];
     };
   };
 

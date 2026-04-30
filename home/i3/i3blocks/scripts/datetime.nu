@@ -43,7 +43,7 @@ if $is_current {
 }
 
 {
-  full_text: $"<span color=\"#f1fa8c\"> </span>($date_str)",
+  full_text: $"<span color=\"#f1fa8c\">󱥫</span> ($date_str)",
   tz_index: $tz_index
   is_current: $is_current
 } | to json | print

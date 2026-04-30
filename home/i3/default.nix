@@ -30,7 +30,7 @@
         modifier = meta;
 
         fonts = {
-          names = [ "JetBrainsMono NF" ];
+          names = [ "monospace" ];
           size = 8.0;
         };
 
