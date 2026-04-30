@@ -11,10 +11,14 @@ config.window_padding = {
 }
 
 config.font = wezterm.font_with_fallback {
-  "JetBrainsMono NF",
+  "monospace",
   {
     family = "Klee One",
     scale = 1.2,
+  },
+  {
+    family = "nasin-nanpa",
+    stretch = "UltraExpanded",
   }
 }
 
