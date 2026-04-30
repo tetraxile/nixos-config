@@ -12,6 +12,7 @@
   imports = [
     ./system/${hostName}/hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    ./xkb
     ./overlays.nix
   ];
 
@@ -164,11 +165,6 @@
       enable = isDesktop;
 
       windowManager.i3.enable = true;
-
-      xkb = {
-        layout = "tetra";
-        extraLayouts = import ./xkb;
-      };
 
       autoRepeatDelay = 200;
       autoRepeatInterval = 30;

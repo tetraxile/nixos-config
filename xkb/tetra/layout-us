@@ -2,12 +2,12 @@
 partial alphanumeric_keys modifier_keys
 xkb_symbols "tetra" {
 	
-	name[Group1]= "tetra's custom layout";
+	name[Group1]= "tetra's custom layout (US)";
 
-	key <TLDE>  {[        grave,     notsign,      dead_tilde,            NoSymbol ]};
+	key <TLDE>  {[        grave,  asciitilde,      dead_tilde,            NoSymbol ]};
 	key <AE01>  {[            1,      exclam,      exclamdown,         onesuperior ]};
-	key <AE02>  {[            2,    quotedbl,     twosuperior,  doublelowquotemark ]};
-	key <AE03>  {[            3,           3,   threesuperior,           copyright ]};
+	key <AE02>  {[            2,          at,     twosuperior,  doublelowquotemark ]};
+	key <AE03>  {[            3,  numbersign,   threesuperior,           copyright ]}; 
 	key <AE04>  {[            4,      dollar,        EuroSign,                cent ]};
 	key <AE05>  {[            5,     percent,        permille,            NoSymbol ]};
 	key <AE06>  {[            6, asciicircum, dead_circumflex,            NoSymbol ]};
@@ -18,7 +18,7 @@ xkb_symbols "tetra" {
 	key <AE11>  {[        minus,  underscore,             yen,              emdash ]};
 	key <AE12>  {[        equal,        plus,        notequal,           plusminus ]};
 
-	key <AD01>  {[            q,           Q,      adiaeresis,          Adiaeresis ]};
+	key <AD01>  {[            q,           Q,      adiaeresis,          Adiaeresis ]}; 
 	key <AD02>  {[            w,           W,      ediaeresis,          Ediaeresis ]};
 	key <AD03>  {[            e,           E,          eacute,              Eacute ]};
 	key <AD04>  {[            r,           R,      registered,           trademark ]};
@@ -41,10 +41,10 @@ xkb_symbols "tetra" {
 	key <AC08>  {[            k,           K,              oe,                  OE ]};
 	key <AC09>  {[            l,           L,         lstroke,             Lstroke ]};
 	key <AC10>  {[    semicolon,       colon,  dead_diaeresis,            NoSymbol ]};
-	key <AC11>  {[   apostrophe,          at,      dead_acute,       dead_abovedot ]};
-	key <BKSL>  {[   numbersign,  asciitilde,      dead_grave,      periodcentered ]};
+	key <AC11>  {[   apostrophe,    quotedbl,      dead_acute,       dead_abovedot ]};
+	key <BKSL>  {[    backslash,         bar,      dead_grave,         dead_ogonek ]};
 
-	key <LSGT>  {[    backslash,         bar,    dead_cedilla,         dead_ogonek ]};
+	key <LSGT>  {[    backslash,         bar,    dead_cedilla,      periodcentered ]};
 	key <AB01>  {[            z,           Z,              ae,                  AE ]};
 	key <AB02>  {[            x,           X,        multiply,            approxeq ]};
 	key <AB03>  {[            c,           C,        ccedilla,            Ccedilla ]};

@@ -56,8 +56,9 @@
             # zoomer
 
             # switch input method
-            "${mod}+1" = "exec fcitx5-remote -s keyboard-tetra";
-            "${mod}+2" = "exec fcitx5-remote -s mozc";
+            "${mod}+1" = "exec fcitx5-remote -s keyboard-tetra"; # custom keyboard layout
+            "${mod}+2" = "exec fcitx5-remote -s mozc"; # japanese IME
+            "${mod}+3" = "exec fcitx5-remote -s keyboard-csurtok"; # sitelen pona
 
             # take screenshot and copy to clipboard
             "${meta}+c" = "exec --no-startup-id escrotum -sC";
@@ -184,6 +185,7 @@
           {
             command = "xmodmap ~/.Xmodmap";
             notification = false;
+            always = true;
           }
         ];
       };
