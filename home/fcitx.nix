@@ -12,6 +12,7 @@
       addons = with pkgs; [
         fcitx5-mozc
         fcitx5-table-other
+        qt6Packages.fcitx5-chinese-addons
       ];
     };
   };

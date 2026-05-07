@@ -15,6 +15,14 @@
     };
 
     quickCss = ''
+      [class*="pulseGradient"] {
+        display: none;
+      }
+
+      [class*="profileEffects"] {
+        display: none !important
+      }
+
       [class*="notice"][class*="colorStreamerMode"] {
         display: none !important;
       }
