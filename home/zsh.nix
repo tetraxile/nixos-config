@@ -13,6 +13,7 @@ _: {
         neofetch = "hyfetch";
         watch-sync = "watch -d grep -e Dirty: -e Writeback: /proc/meminfo";
         nsu = "nix-shell --command zsh";
+        gdb-switch = "gdb -ex \"set architecture aarch64\" -ex \"set gnutarget elf64-littleaarch64\" -ex \"target extended-remote switch:22225\"";
       };
 
       initContent = ''
