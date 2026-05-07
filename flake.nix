@@ -3,10 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixcord.url = "github:FlameFlag/nixcord";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,6 +28,8 @@
       self,
       nixpkgs,
       nixpkgs-stable,
+      zen-browser,
+      nix-index-database,
       ...
     }@inputs:
     let
@@ -22,6 +38,7 @@
           stable-pkgs = import nixpkgs-stable {
             system = final.stdenv.hostPlatform.system;
           };
+          zen-browser = zen-browser.packages.${final.stdenv.hostPlatform.system}.default;
         })
       ];
       overlaysModule = _: { nixpkgs.overlays = overlays; };
@@ -52,6 +69,7 @@
           modules = [
             ./configuration.nix
             inputs.home-manager.nixosModules.default
+            nix-index-database.nixosModules.default
             overlaysModule
           ];
         };
@@ -64,6 +82,7 @@
           modules = [
             ./configuration.nix
             inputs.home-manager.nixosModules.default
+            nix-index-database.nixosModules.default
             overlaysModule
           ];
         };

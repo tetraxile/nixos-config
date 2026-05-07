@@ -23,6 +23,8 @@ _: {
         bindkey "^[[1;5D" backward-word   # Ctrl+Left = move one word left
         bindkey "^[[3;5~" delete-word     # Ctrl+Del = delete one word right
         bindkey "^H" backward-delete-word # Ctrl+Backspace = delete one word left
+
+        source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       '';
     };
 

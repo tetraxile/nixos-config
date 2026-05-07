@@ -1,10 +1,11 @@
 {
   pkgs,
+  isDesktop,
   ...
 }:
 {
   programs.nixcord = {
-    enable = true;
+    enable = isDesktop;
 
     discord.vencord.enable = true;
 

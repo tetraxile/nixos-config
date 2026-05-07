@@ -8,17 +8,24 @@
 {
   imports = [ ./i3blocks ];
 
-  home.packages = with pkgs; [
-    dmenu
-    clipmenu
-    escrotum
-    xclip
-    xsecurelock
-    xss-lock
-  ];
+  home.packages =
+    with pkgs;
+    (
+      if isDesktop then
+        [
+          dmenu
+          clipmenu
+          escrotum
+          xclip
+          xsecurelock
+          xss-lock
+        ]
+      else
+        [ ]
+    );
 
   xsession.windowManager.i3 = {
-    enable = true;
+    enable = isDesktop;
     config =
       let
         meta = "Mod4";
